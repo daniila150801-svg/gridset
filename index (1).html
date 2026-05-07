@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gridset. Сайт и карты для вашего бизнеса</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --dark: #111111;
+    --panel: #161616;
+    --border: #252525;
+    --accent: #ff4d00;
+    --accent-dim: rgba(255, 77, 0, 0.12);
+    --white: #f5f5f0;
+    --muted: #888;
+    --grid-color: rgba(255,255,255,0.03);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Grid background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--grid-color) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  nav.scrolled {
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    border-color: var(--border);
+  }
+
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 3px;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .logo span { color: var(--accent); }
+
+  nav ul {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  nav ul a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  nav ul a:hover { color: var(--white); }
+
+  .nav-cta {
+    background: var(--accent);
+    color: var(--white) !important;
+    padding: 10px 22px;
+    border-radius: 2px;
+    transition: opacity 0.2s !important;
+  }
+
+  .nav-cta:hover { opacity: 0.85; }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 48px 80px;
+    overflow: hidden;
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.2s forwards;
+  }
+
+  .hero-eyebrow-line {
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .hero-eyebrow span {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 12vw, 160px);
+    line-height: 0.92;
+    letter-spacing: 2px;
+    max-width: 900px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.35s forwards;
+  }
+
+  .hero h1 .outline {
+    -webkit-text-stroke: 1px var(--white);
+    color: transparent;
+  }
+
+  .hero h1 .accent-word { color: var(--accent); }
+
+  .hero-sub {
+    margin-top: 40px;
+    max-width: 480px;
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s forwards;
+  }
+
+  .hero-actions {
+    margin-top: 48px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.65s forwards;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--white);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    border-radius: 2px;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .btn-ghost:hover { color: var(--white); }
+
+  .btn-ghost svg { transition: transform 0.2s; }
+  .btn-ghost:hover svg { transform: translateX(4px); }
+
+  /* Decorative corner numbers */
+  .hero-counter {
+    position: absolute;
+    right: 48px;
+    bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    opacity: 0;
+    animation: fadeIn 1s 1s forwards;
+  }
+
+  .hero-stat {
+    text-align: right;
+  }
+
+  .hero-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .hero-stat-label {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* Glowing orb */
+  .hero-glow {
+    position: absolute;
+    top: 20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255,77,0,0.08) 0%, transparent 70%);
+    pointer-events: none;
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+  }
+
+  /* SECTION BASE */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 100px 48px;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .section-label-line {
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .section-label span {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+
+  .section-sub {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.7;
+  }
+
+  /* SERVICES */
+  .services { border-top: 1px solid var(--border); }
+
+  .services-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 64px;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .packages {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .package {
+    background: var(--panel);
+    padding: 40px 36px;
+    position: relative;
+    transition: background 0.25s;
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .package-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 36px;
+    flex: 1;
+  }
+
+  .package:hover { background: #1a1a1a; }
+
+  .package.featured {
+    background: var(--dark);
+  }
+
+  .package.featured::before {
+    content: 'Популярный';
+    position: absolute;
+    top: -1px;
+    right: 24px;
+    background: var(--accent);
+    color: var(--white);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+  }
+
+  .package-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .package-desc {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+
+  .package-price {
+    margin-bottom: 8px;
+  }
+
+  .package-price-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 44px;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .package-price-currency {
+    font-size: 18px;
+    color: var(--muted);
+    margin-left: 4px;
+  }
+
+  .package-monthly {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+
+  .package-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: #bbb;
+    line-height: 1.4;
+  }
+
+  .package-features li::before {
+    content: '';
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    margin-top: 1px;
+    background: var(--accent-dim);
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='8' viewBox='0 0 10 8'%3E%3Cpath d='M1 4l2.5 2.5L9 1' stroke='%23ff4d00' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .package-cta {
+    display: block;
+    text-align: center;
+    border: 1px solid var(--border);
+    color: var(--white);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 14px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .package-cta:hover {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+  }
+
+  .package.featured .package-cta {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .package.featured .package-cta:hover {
+    opacity: 0.88;
+  }
+
+  /* WHY US */
+  .why { border-top: 1px solid var(--border); }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    margin-top: 64px;
+    align-items: center;
+  }
+
+  .why-points {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .why-point {
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 20px;
+  }
+
+  .why-point:first-child { border-top: 1px solid var(--border); }
+
+  .why-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  .why-point-title {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+
+  .why-point-text {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .why-visual {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .why-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 28px 32px;
+    border-radius: 2px;
+  }
+
+  .why-card-title {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .why-card-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .why-card-unit {
+    font-size: 14px;
+    color: var(--accent);
+    margin-left: 4px;
+  }
+
+  .why-card-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .why-card:last-child {
+    border-left: 2px solid var(--accent);
+  }
+
+  .why-bar-wrap {
+    margin-top: 16px;
+  }
+
+  .why-bar {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .why-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    animation: grow 1.5s 0.5s ease-out both;
+  }
+
+  @keyframes grow {
+    from { width: 0; }
+    to { width: var(--w); }
+  }
+
+  /* HOW */
+  .how { border-top: 1px solid var(--border); }
+
+  .steps {
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .step {
+    background: var(--panel);
+    padding: 40px 32px;
+    position: relative;
+  }
+
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 20px;
+    transition: color 0.3s;
+  }
+
+  .step:hover .step-num { color: var(--accent); }
+
+  .step-title {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  .step-text {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* CONTACT */
+  .contact {
+    border-top: 1px solid var(--border);
+    background: var(--panel);
+  }
+
+  .contact-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+
+  .contact-text .section-title { margin-bottom: 12px; }
+
+  .contact-text p {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 400px;
+    line-height: 1.7;
+  }
+
+  .contact-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--white);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .contact-item:hover { color: var(--accent); }
+
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .contact-item:hover .contact-icon {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+  }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 32px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  footer .logo { font-size: 22px; }
+
+  .footer-copy {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    .packages { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 18px 24px; }
+    nav ul { display: none; }
+    section { padding: 72px 24px; }
+    .hero { padding: 100px 24px 64px; }
+    .hero-counter { display: none; }
+    .why-grid { grid-template-columns: 1fr; }
+    .packages { grid-template-columns: 1fr; }
+    .contact-inner { flex-direction: column; align-items: flex-start; }
+    footer { padding: 24px; flex-direction: column; align-items: flex-start; }
+    .services-header { flex-direction: column; align-items: flex-start; }
+  }
+
+  /* Hamburger for mobile */
+  .nav-mobile-cta {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .nav-mobile-cta {
+      display: block;
+      background: var(--accent);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 10px 18px;
+      border-radius: 2px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#" class="logo">GRID<span>SET</span></a>
+  <ul>
+    <li><a href="#services">Услуги</a></li>
+    <li><a href="#why">Почему мы</a></li>
+    <li><a href="#how">Как работаем</a></li>
+    <li><a href="#contact" class="nav-cta">Написать нам</a></li>
+  </ul>
+  <a href="https://wa.me/77XXXXXXXXX" class="nav-mobile-cta" target="_blank">WhatsApp</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+
+  <div class="hero-eyebrow">
+    <div class="hero-eyebrow-line"></div>
+    <span>Сайт и карты для вашего бизнеса</span>
+  </div>
+
+  <h1>
+    ПОМОГИТЕ<br>
+    КЛИЕНТАМ<br>
+    <span class="outline">НАЙТИ</span><br>
+    <span class="accent-word">ВАС</span>
+  </h1>
+
+  <p class="hero-sub">
+    Веб-присутствие и геолокационное продвижение. Чтобы когда клиент ищет — он находил вас, а не конкурента.
+  </p>
+
+  <div class="hero-actions">
+    <a href="#contact" class="btn-primary">Получить предложение</a>
+    <a href="#services" class="btn-ghost">
+      Посмотреть тарифы
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+
+
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header reveal">
+    <div>
+      <div class="section-label">
+        <div class="section-label-line"></div>
+        <span>Тарифы</span>
+      </div>
+      <h2 class="section-title">ЧТО МЫ<br>ДЕЛАЕМ</h2>
+    </div>
+    <p class="section-sub">Никаких скрытых платежей. Фиксированная цена, понятный результат. Ежемесячная оплата только за реальную поддержку.</p>
+  </div>
+
+  <div class="packages reveal">
+
+    <div class="package">
+      <div class="package-name">Страница</div>
+      <p class="package-desc">Одна страница со всем нужным: услуги, контакты, адрес, фото работ. Просто и по делу.</p>
+      <div class="package-price">
+        <span class="package-price-amount">49 900</span>
+        <span class="package-price-currency">₸</span>
+      </div>
+      <p class="package-monthly">+ 4 900 ₸ / месяц (хостинг и поддержка)</p>
+      <ul class="package-features">
+        <li>Профессиональный одностраничный сайт</li>
+        <li>Адаптированный дизайн под любое устройство</li>
+        <li>Интеграция с WhatsApp и прямым звонком</li>
+        <li>Блок с услугами, фото и контактами</li>
+        <li>Индивидуальный дизайн под ваш бизнес</li>
+      </ul>
+      <a href="#contact" class="package-cta">Заказать</a>
+    </div>
+
+    <div class="package">
+      <div class="package-name">Карта</div>
+      <p class="package-desc">Оформляем профили на 2ГИС, Яндекс Картах и Google Maps. Больше показов, больше звонков.</p>
+      <div class="package-price">
+        <span class="package-price-amount">29 900</span>
+        <span class="package-price-currency">₸</span>
+      </div>
+      <p class="package-monthly">+ 2 900 ₸ / месяц (мониторинг, обновления, ответы на отзывы)</p>
+      <ul class="package-features">
+        <li>Оформление на 2ГИС, Яндекс и Google</li>
+        <li>Профессиональные фото и описание компании</li>
+        <li>Настройка категорий, услуг и часов работы</li>
+        <li>Работа с отзывами от вашего имени</li>
+        <li>Регулярное обновление информации</li>
+      </ul>
+      <a href="#contact" class="package-cta">Заказать</a>
+    </div>
+
+    <div class="package featured">
+      <div class="package-name">Старт</div>
+      <p class="package-desc">Сайт и карты вместе. Для тех, кто хочет закрыть вопрос с онлайн-присутствием за один раз.</p>
+      <div class="package-price">
+        <span class="package-price-amount">69 900</span>
+        <span class="package-price-currency">₸</span>
+      </div>
+      <p class="package-monthly">+ 6 900 ₸ / месяц (всё включено)</p>
+      <ul class="package-features">
+        <li>Всё из пакета «Страница»</li>
+        <li>Всё из пакета «Карта»</li>
+        <li>Единое управление вашим присутствием онлайн</li>
+        <li>Один контакт для всех вопросов</li>
+        <li>Скидка по сравнению с покупкой по отдельности</li>
+      </ul>
+      <a href="#contact" class="package-cta">Заказать</a>
+    </div>
+
+    <div class="package">
+      <div class="package-name">Про</div>
+      <p class="package-desc">Многостраничный сайт с нужными интеграциями. Для тех, кто уже вырос из одной страницы.</p>
+      <div class="package-price">
+        <span class="package-price-amount">от 149 900</span>
+        <span class="package-price-currency">₸</span>
+      </div>
+      <p class="package-monthly">+ 9 900 ₸ / месяц</p>
+      <ul class="package-features">
+        <li>Несколько страниц: услуги, портфолио, о нас</li>
+        <li>Форма заявки и онлайн-запись</li>
+        <li>Интеграция с CRM и мессенджерами</li>
+        <li>Оформление карт на всех платформах</li>
+        <li>Индивидуальный расчёт под задачи бизнеса</li>
+      </ul>
+      <a href="#contact" class="package-cta">Обсудить</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why" id="why">
+  <div class="section-label reveal">
+    <div class="section-label-line"></div>
+    <span>Почему Gridset</span>
+  </div>
+
+  <div class="why-grid">
+    <div class="why-points reveal">
+      <h2 class="section-title" style="margin-bottom: 32px;">КОНКРЕТНЫЙ<br>РЕЗУЛЬТАТ</h2>
+
+      <div class="why-point">
+        <div class="why-num">01</div>
+        <div>
+          <div class="why-point-title">Без лишней головной боли</div>
+          <p class="why-point-text">Вам не нужно разбираться в технологиях. Говорите, чем занимаетесь — мы делаем всё остальное сами.</p>
+        </div>
+      </div>
+
+      <div class="why-point">
+        <div class="why-num">02</div>
+        <div>
+          <div class="why-point-title">Цена без накруток</div>
+          <p class="why-point-text">Прозрачное ценообразование, фиксированная стоимость. Платите только за то, что реально получаете.</p>
+        </div>
+      </div>
+
+      <div class="why-point">
+        <div class="why-num">03</div>
+        <div>
+          <div class="why-point-title">Там, где клиенты реально ищут</div>
+          <p class="why-point-text">2ГИС, Яндекс, Google. Именно туда люди идут, когда ищут местный бизнес. Мы делаем так, чтобы находили вас.</p>
+        </div>
+      </div>
+
+      <div class="why-point">
+        <div class="why-num">04</div>
+        <div>
+          <div class="why-point-title">Поддержка на месяцы вперёд</div>
+          <p class="why-point-text">Оплата раз в месяц. Мы следим за работой сайта, обновляем информацию и отвечаем на вопросы.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="why-visual reveal">
+      <div class="why-card">
+        <div class="why-card-title">Ежемесячная подписка</div>
+        <div class="why-card-value">от <span style="font-size:32px">2 900</span><span class="why-card-unit">₸</span></div>
+        <div class="why-card-sub">Хостинг, поддержка, обновления</div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-card-title">Охват после оформления карт</div>
+        <div class="why-card-value" style="font-size: 36px; line-height: 1.2">Заметно<br>выше</div>
+        <div class="why-card-sub" style="margin-top: 12px">По сравнению с незаполненным профилем</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="how" id="how">
+  <div class="section-label reveal">
+    <div class="section-label-line"></div>
+    <span>Процесс</span>
+  </div>
+  <h2 class="section-title reveal">КАК МЫ<br>РАБОТАЕМ</h2>
+
+  <div class="steps reveal">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Запрос</div>
+      <p class="step-text">Вы пишете нам в WhatsApp и мы обсуждаем ваши пожелания. Обычно хватает 10 минут, чтобы понять, что нужно.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Берёмся за работу</div>
+      <p class="step-text">Собираем сайт, оформляем карты. По ходу согласовываем детали, чтобы результат вас устроил.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Вы принимаете</div>
+      <p class="step-text">Проверяете, вносим правки если нужно. Запускаем. Клиенты начинают вас находить.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-title">Поддержка</div>
+      <p class="step-text">Ежемесячная оплата покрывает хостинг, обновления и ответы на вопросы. Вы не остаётесь один на один с сайтом.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-text reveal">
+      <div class="section-label" style="margin-bottom: 16px">
+        <div class="section-label-line"></div>
+        <span>Контакты</span>
+      </div>
+      <h2 class="section-title">ДАВАЙТЕ<br>ПОГОВОРИМ</h2>
+      <p>Напишите в WhatsApp. Расскажите, чем занимается ваш бизнес, и мы подберём подходящий вариант.</p>
+    </div>
+
+    <div class="contact-actions reveal">
+      <a href="https://wa.me/77XXXXXXXXX" class="contact-item" target="_blank">
+        <div class="contact-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="currentColor"/>
+          </svg>
+        </div>
+        WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="#" class="logo">GRID<span>SET</span></a>
+  <p class="footer-copy">2025 Gridset.</p>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
